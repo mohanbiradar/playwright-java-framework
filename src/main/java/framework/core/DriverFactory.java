@@ -4,8 +4,6 @@ import com.microsoft.playwright.*;
 import framework.config.ConfigManager;
 import framework.config.FrameworkConfig;
 
-import java.awt.*;
-
 public class DriverFactory {
 
     private DriverFactory() {
@@ -34,13 +32,9 @@ public class DriverFactory {
         );
         BROWSER.set(browser);
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) screenSize.getWidth();
-        int height = (int) screenSize.getHeight();
-
         // ✅ Maximize window by disabling the default viewport
         BrowserContext context = browser.newContext(
-                new Browser.NewContextOptions().setViewportSize(width, height)
+                new Browser.NewContextOptions().setViewportSize(null)
         );
 
         Page page = context.newPage();
