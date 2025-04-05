@@ -1,0 +1,7 @@
+- uses: actions/checkout@v3
+- name: Setup Java
+  uses: actions/setup-java@v3
+  with:
+    java-version: '17'
+- name: Run Tests
+  run: mvn clean test
