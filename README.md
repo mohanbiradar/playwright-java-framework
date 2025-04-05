@@ -70,12 +70,12 @@ Add environment files under `src/test/resources`
 
 **Example: `config.properties`**
 ```properties
-app.url=https://example.com/login
+baseUrl=https://example.com/login
 ```
 
 Run with:
 ```bash
-mvn test -Denv=dev
+mvn test -DbaseUrl="new url"
 ```
 
 ---
