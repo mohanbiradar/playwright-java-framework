@@ -25,6 +25,26 @@ jobs:
         with:
           maven-version: '3.8.6'
 
+      - name: Install system dependencies for Playwright
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwoff1 \
+            libvpx9 \
+            libevent-2.1-7 \
+            libopus0 \
+            libgstreamer-plugins-base1.0-0 \
+            libgstreamer-gl1.0-0 \
+            libgstreamer-plugins-bad1.0-0 \
+            libflite1 \
+            libavif16 \
+            libharfbuzz-icu0 \
+            libsecret-1-0 \
+            libhyphen0 \
+            libmanette-0.2-0 \
+            libgles2 \
+            gstreamer1.0-libav
+
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -32,5 +52,8 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven
 
-      - name: Install dependencies and run tests
-        run: mvn clean test -Dbrowser=chromium -Dheadless=true
+      - name: Install Playwright Browsers
+        run: mvn exec:java -e -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install"
+
+      - name: Run Tests
+        run: mvn clean test -Dbrowser=firefox -Dheadless=true
